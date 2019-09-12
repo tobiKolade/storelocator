@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.jumbo</groupId>
 	<artifactId>store-locator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>store-locator</name>
 	<description>Project to locate closest jumbo stores to a given position</description>
 

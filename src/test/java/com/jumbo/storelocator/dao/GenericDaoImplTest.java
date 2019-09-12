@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.EntityManager;
 import java.time.LocalTime;
@@ -23,9 +22,6 @@ import static org.junit.Assert.assertThat;
  */
 public class GenericDaoImplTest {
 
-    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
-    private int batchSize;
-
     private List<Store> stores;
     private GenericDao dao;
 
@@ -35,7 +31,7 @@ public class GenericDaoImplTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        dao = new GenericDaoImpl(batchSize, mockEntityManager);
+        dao = new GenericDaoImpl(100, mockEntityManager);
         stores = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             Store store = new Store(

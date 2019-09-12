@@ -28,10 +28,6 @@ public class StoreProcessModel implements Serializable {
     private boolean collectionPoint;
     private int sapStoreId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getCity() {
         return city;
     }

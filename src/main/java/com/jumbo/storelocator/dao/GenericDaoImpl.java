@@ -90,8 +90,4 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 
         return result;
     }
-
-//    protected EntityManager getEntityManager() {
-//        return entityManager;
-//    }
 }

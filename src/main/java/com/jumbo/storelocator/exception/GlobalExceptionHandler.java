@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
         Response response = new Response();
         response.setCode("bad_request");
         response.setTimestamp(LocalDateTime.now());
-        response.setDescription(localizeErrorMessage("request.invalid", null));
+        response.setDescription(localizeErrorMessage("request.invalid"));
         BindingResult result;
         if (e instanceof MethodArgumentNotValidException) {
             result = ((MethodArgumentNotValidException) e).getBindingResult();

@@ -7,11 +7,14 @@ import com.jumbo.storelocator.dao.GenericDao;
 import com.jumbo.storelocator.entity.Store;
 import com.jumbo.storelocator.model.StoreProcessModel;
 import com.jumbo.storelocator.model.request.StoreGeoRequest;
+import com.jumbo.storelocator.model.util.ConstantUtil;
 import com.jumbo.storelocator.repository.StoreRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -42,17 +45,21 @@ public class StoreServiceImpl implements StoreService {
         this.dao = dao;
     }
 
-    //This only runs if the stores table is empty
+    /**
+     * This method is called at startup of the app
+     * It loads all jumbo stores into the db, provided this data has not been loaded before
+     */
     public void initStores() throws IOException {
         if(storeRepository.count() > 0)
             return;
+
         TypeReference<List<StoreProcessModel>> typeReference = new TypeReference<List<StoreProcessModel>>(){};
         JsonNode treeNode = objectMapper.readTree(resourceFile.getFile());
         JsonNode storesNode = treeNode.findPath(STORE_NODE_NAME);
-        List<StoreProcessModel> storesModel = objectMapper.readValue(storesNode.toString(), typeReference);
+        List<StoreProcessModel> jsonStores = objectMapper.readValue(storesNode.toString(), typeReference);
 
         List<Store> stores = new ArrayList<>();
-        storesModel.stream()
+        jsonStores.stream()
                 .forEach( storeProcessModel -> {
                     Store store = new Store(
                             storeProcessModel.getCity(),
@@ -83,22 +90,53 @@ public class StoreServiceImpl implements StoreService {
         return dao.saveInBatch(stores);
     }
 
+    /**
+     * This method finds the 5 closest stores to the given position using haversine formula
+     * @param request
+     * @return
+     */
+    @Cacheable(value = ConstantUtil.STORE_CACHE_NAME, key = "#request.longitude + '|' + #request.latitude")
     public Iterable<Store> findNearestStores(StoreGeoRequest request) {
         return dao.callStoredProcedure("find_closest_stores",
                 Store.class,
                 request.getLatitude(), request.getLongitude());
     }
 
+    /**
+     * This method finds the 5 closest active stores to the given position using haversine formula
+     * I marked all stores with todayOpen value 'Gesloten' as inactive
+     * @param request
+     * @return
+     */
+    @Cacheable(value = ConstantUtil.ACTIVE_STORE_CACHE_NAME, key = "#request.longitude + '|' + #request.latitude")
     public Iterable<Store> findNearestActiveStores(StoreGeoRequest request) {
         return dao.callStoredProcedure("find_closest_active_stores",
                 Store.class,
                 request.getLatitude(), request.getLongitude());
     }
 
+    /**
+     * This method finds the 5 closest active and open stores to the given position using haversine formula
+     * Closed stores relative to the current local time are filtered out here
+     * @param request
+     * @return
+     */
+    @Cacheable(value = ConstantUtil.OPEN_STORE_CACHE_NAME, key = "#request.longitude + '|' + #request.latitude")
     public Iterable<Store> findNearestOpenStores(StoreGeoRequest request) {
         return dao.callStoredProcedure("find_closest_open_stores",
                 Store.class,
                 request.getLatitude(), request.getLongitude(),
                 LocalTime.now());
+    }
+
+    /**
+     * This is to clear the cache hourly
+     * This wouldn't be needed if I'm using a cachemanager like redis
+     * where I can set TTL
+     * An update or create would also require cache clearing as it would invalidate the cached results
+     */
+    @CacheEvict(allEntries = true)
+    @Scheduled(cron = "0 0 */1 * * ?")
+    public void clearCache() {
     }
 }
