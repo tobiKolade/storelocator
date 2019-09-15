@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Objects;
 
 /**
  * Created by tobi.oladimeji on 09/12/2019
@@ -18,8 +19,8 @@ public class StoreProcessModel implements Serializable {
     private String street3;
     private String uuid;
     private String addressName;
-    private double longitude;
-    private double latitude;
+    private float longitude;
+    private float latitude;
     private int complexNumber;
     private boolean showWarningMessage;
     private String todayOpen;
@@ -27,6 +28,13 @@ public class StoreProcessModel implements Serializable {
     private String locationType;
     private boolean collectionPoint;
     private int sapStoreId;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, postalCode, street, street2, street3,
+                uuid, addressName, longitude, latitude, complexNumber,showWarningMessage,
+                todayOpen, todayClose, locationType, collectionPoint, sapStoreId);
+    }
 
     public String getCity() {
         return city;
@@ -56,11 +64,11 @@ public class StoreProcessModel implements Serializable {
         return addressName;
     }
 
-    public double getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public double getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 
@@ -93,9 +101,7 @@ public class StoreProcessModel implements Serializable {
     }
 
     public boolean isActive(String todayOpen) {
-        boolean status = CLOSED_STORE.equalsIgnoreCase(todayOpen) ?
-                false : true;
-        return status;
+        return !(CLOSED_STORE.equalsIgnoreCase(todayOpen));
     }
 
     public String getLocationType() {

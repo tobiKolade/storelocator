@@ -39,8 +39,8 @@ public class StoreRepositoryIntegrationTest {
                     "",
                     "EOgKYx4XFiQAAAFJa_YYZ4At",
                     "Jumbo 's Gravendeel Gravendeel Centrum",
-                    4.615551d,
-                    51.778461d,
+                    4.615551f,
+                    51.778461f,
                     1,
                     true,
                     LocalTime.parse("08:00"),
@@ -55,10 +55,12 @@ public class StoreRepositoryIntegrationTest {
     @Test
     public void givenStoreRepository_whenSaveAndRetrieveEntity_thenOK() {
         Store storeEntity = storeRepository.save(store);
-        Optional<Store> foundStore = storeRepository.findById(storeEntity.getId());
+        Store foundStore = storeRepository.findById(storeEntity.getId()).get();
 
         assertNotNull(foundStore);
-        assertEquals(storeEntity.getComplexNumber(), foundStore.get().getComplexNumber());
+        assertEquals(storeEntity.getComplexNumber(), foundStore.getComplexNumber());
+        assertEquals(storeEntity.getStreet3(), foundStore.getStreet3());
+        assertEquals(storeEntity.getStreet(), foundStore.getStreet());
     }
 
     @Test

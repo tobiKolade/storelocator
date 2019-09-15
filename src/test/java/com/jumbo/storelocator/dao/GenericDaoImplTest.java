@@ -42,8 +42,8 @@ public class GenericDaoImplTest {
                     "",
                     "EOgKYx4XFiQAAAFJa_YYZ4At",
                     "Jumbo 's Gravendeel Gravendeel Centrum",
-                    4.615551d,
-                    51.778461d,
+                    4.615551f,
+                    51.778461f,
                     i + 1,
                     true,
                     LocalTime.parse("08:00"),
@@ -53,18 +53,17 @@ public class GenericDaoImplTest {
                     i + 100,
                     true
             );
-
             stores.add(store);
         }
     }
 
     @Test
     public void memoryClearsAtBatchLimit_whenSavingBatch() {
-
         Iterable<Store> savedStores = dao.saveInBatch(stores);
+
         int size = ((Collection<?>)savedStores).size();
 
-        //verify that
+        //verify that 10 batch calls were made since batch size is 100 and I have 1000 stores
         Mockito.verify(mockEntityManager, Mockito.times(10)).flush();
         Mockito.verify(mockEntityManager, Mockito.times(10)).clear();
 
@@ -74,9 +73,14 @@ public class GenericDaoImplTest {
 
     @Test
     public void noErrorThrown_whenEmptyRecords() {
-        Iterable<Store> result = dao.saveInBatch(new ArrayList());
-        assertNotNull(result);
+        Iterable<Store> savedStores = dao.saveInBatch(new ArrayList());
+        int size = ((Collection<?>)savedStores).size();
+
+        //Verify that no batch call was made
         Mockito.verify(mockEntityManager, Mockito.times(0)).flush();
         Mockito.verify(mockEntityManager, Mockito.times(0)).clear();
+
+        assertNotNull(savedStores);
+        assertThat(size, greaterThanOrEqualTo(0));
     }
 }

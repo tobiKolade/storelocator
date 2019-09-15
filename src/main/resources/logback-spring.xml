@@ -32,6 +32,12 @@
     </appender>
 
 
+    <!--I would ideally also include an appender to a central source.
+    eg, logstash appender which logs via a UDP port and the logs from different pods goes to the
+    same elasticsearch index.
+    I then view logs from different pods in the same index on any es viewer eg Kibana
+      -->
+
 
     <!-- LOG everything at INFO level -->
     <root level="info">
@@ -45,8 +51,4 @@
         <appender-ref ref="Console" />
     </logger>
 
-    <!--I would ideally also include an appender to a central source.
-    Today, I add a logstash appender which logs via a UDP port and then the log goes to elasticsearch.
-    I then view with kibana
-      -->
 </configuration>

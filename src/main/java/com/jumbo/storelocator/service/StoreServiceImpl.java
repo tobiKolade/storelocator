@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jumbo.storelocator.dao.GenericDao;
 import com.jumbo.storelocator.entity.Store;
+import com.jumbo.storelocator.entity.StoreGeoResult;
 import com.jumbo.storelocator.model.StoreProcessModel;
 import com.jumbo.storelocator.model.request.StoreGeoRequest;
 import com.jumbo.storelocator.model.util.ConstantUtil;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -25,37 +27,33 @@ import java.util.List;
 /**
  * Created by tobi.oladimeji on 09/10/2019
  */
-@Service("storeService")
+@Service
 public class StoreServiceImpl implements StoreService {
 
     @Value("${stores.file}")
-    private Resource resourceFile;
-
-    private final String STORE_NODE_NAME = "stores";
+    private String resource;
 
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
     private StoreRepository storeRepository;
-    private GenericDao dao;
 
     @Autowired
-    public StoreServiceImpl(StoreRepository storeRepository, GenericDao dao) {
-        this.storeRepository = storeRepository;
-        this.dao = dao;
-    }
+    private GenericDao dao;
 
     /**
      * This method is called at startup of the app
      * It loads all jumbo stores into the db, provided this data has not been loaded before
      */
     public void initStores() throws IOException {
-        if(storeRepository.count() > 0)
+        if(null != storeRepository.findFirstId())
             return;
 
+        Resource resourceFile = new ClassPathResource(resource);
         TypeReference<List<StoreProcessModel>> typeReference = new TypeReference<List<StoreProcessModel>>(){};
-        JsonNode treeNode = objectMapper.readTree(resourceFile.getFile());
-        JsonNode storesNode = treeNode.findPath(STORE_NODE_NAME);
+        JsonNode treeNode = objectMapper.readTree(resourceFile.getInputStream());
+        JsonNode storesNode = treeNode.findPath(ConstantUtil.STORE_NODE_NAME);
         List<StoreProcessModel> jsonStores = objectMapper.readValue(storesNode.toString(), typeReference);
 
         List<Store> stores = new ArrayList<>();
@@ -82,23 +80,19 @@ public class StoreServiceImpl implements StoreService {
                     );
                     stores.add(store);
                 });
-        save(stores);
-    }
-
-    @Override
-    public Iterable<Store> save(List<Store> stores) {
-        return dao.saveInBatch(stores);
+        dao.saveInBatch(stores);
     }
 
     /**
      * This method finds the 5 closest stores to the given position using haversine formula
+     * considering that the earth is not a linear plane,  otherwise distance between 2 points would have sufficed
      * @param request
      * @return
      */
     @Cacheable(value = ConstantUtil.STORE_CACHE_NAME, key = "#request.longitude + '|' + #request.latitude")
-    public Iterable<Store> findNearestStores(StoreGeoRequest request) {
+    public Iterable<StoreGeoResult> findNearestStores(StoreGeoRequest request) {
         return dao.callStoredProcedure("find_closest_stores",
-                Store.class,
+                StoreGeoResult.class,
                 request.getLatitude(), request.getLongitude());
     }
 
@@ -109,9 +103,9 @@ public class StoreServiceImpl implements StoreService {
      * @return
      */
     @Cacheable(value = ConstantUtil.ACTIVE_STORE_CACHE_NAME, key = "#request.longitude + '|' + #request.latitude")
-    public Iterable<Store> findNearestActiveStores(StoreGeoRequest request) {
+    public Iterable<StoreGeoResult> findNearestActiveStores(StoreGeoRequest request) {
         return dao.callStoredProcedure("find_closest_active_stores",
-                Store.class,
+                StoreGeoResult.class,
                 request.getLatitude(), request.getLongitude());
     }
 
@@ -122,21 +116,22 @@ public class StoreServiceImpl implements StoreService {
      * @return
      */
     @Cacheable(value = ConstantUtil.OPEN_STORE_CACHE_NAME, key = "#request.longitude + '|' + #request.latitude")
-    public Iterable<Store> findNearestOpenStores(StoreGeoRequest request) {
+    public Iterable<StoreGeoResult> findNearestOpenStores(StoreGeoRequest request) {
         return dao.callStoredProcedure("find_closest_open_stores",
-                Store.class,
+                StoreGeoResult.class,
                 request.getLatitude(), request.getLongitude(),
                 LocalTime.now());
     }
 
     /**
      * This is to clear the cache hourly
-     * This wouldn't be needed if I'm using a cachemanager like redis
+     * This wouldn't be needed if I'm using a cachemanager like redis, hazelcast etc
      * where I can set TTL
      * An update or create would also require cache clearing as it would invalidate the cached results
      */
     @CacheEvict(allEntries = true)
     @Scheduled(cron = "0 0 */1 * * ?")
     public void clearCache() {
+        int s = 0;
     }
 }

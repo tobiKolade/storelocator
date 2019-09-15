@@ -35,6 +35,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
         this.batchSize = batchSize;
     }
 
+    @Override
     public <S extends T> Iterable<S> callStoredProcedure(String procName,
                                                          Class<S> resultClass,
                                                          Object... args) {
@@ -53,17 +54,17 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
         return call.getResultList();
     }
 
-    @Override
-    public <S extends T> S persist(S entity) {
+    private <S extends T> S persist(S entity) {
         entityManager.persist(entity);
         return entity;
     }
 
     @Override
-    public <S extends T> Iterable<S> saveInBatch(Iterable<S> entities) {
+    public <S extends T> Iterable<S> saveInBatch(List<S> entities) {
 
         int count = 0;
         List<S> result = new ArrayList<>();
+        long total = entities.size();
 
         for(S entity : entities) {
             result.add(persist(entity));
@@ -71,21 +72,11 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
             count++;
 
             //Flush a batch of inserts and release memory
-            if(count % batchSize == 0 && count > 0) {
-                logger.log(Level.INFO,
-                        "Flushing the EntityManager containing {0} entities ...", count);
+            if(count % batchSize == 0 || count == total) {
+                logger.log(Level.INFO,"Flushing the EntityManager containing {0} entities ...", count);
                 entityManager.flush();
                 entityManager.clear();
-                count = 0;
             }
-        }
-
-        if(count > 0) {
-            logger.log(Level.INFO,
-                    "Flushing the remaining {0} entities ...", count);
-
-            entityManager.flush();
-            entityManager.clear();
         }
 
         return result;

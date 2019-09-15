@@ -1,6 +1,6 @@
 package com.jumbo.storelocator.controller;
 
-import com.jumbo.storelocator.entity.Store;
+import com.jumbo.storelocator.entity.StoreGeoResult;
 import com.jumbo.storelocator.model.request.StoreGeoRequest;
 import com.jumbo.storelocator.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ public class StoreController {
     private StoreService storeService;
 
     @GetMapping(value = "/nearest", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Store> nearest(@Validated StoreGeoRequest request) {
+    public Iterable<StoreGeoResult> nearest(@Validated StoreGeoRequest request) {
         return storeService.findNearestStores(request);
     }
 
     @GetMapping(value = "/nearest/active", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Store> active(@Validated StoreGeoRequest request) {
+    public Iterable<StoreGeoResult> active(@Validated StoreGeoRequest request) {
         return storeService.findNearestActiveStores(request);
     }
 
     @GetMapping(value = "/nearest/open", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Store> open(@Validated StoreGeoRequest request) {
+    public Iterable<StoreGeoResult> open(@Validated StoreGeoRequest request) {
         return storeService.findNearestOpenStores(request);
     }
 }

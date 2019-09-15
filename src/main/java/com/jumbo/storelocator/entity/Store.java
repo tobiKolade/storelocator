@@ -1,7 +1,5 @@
 package com.jumbo.storelocator.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,8 +25,8 @@ public class Store implements Serializable {
     private String street3;
     private String uuid;
     private String addressName;
-    private double longitude;
-    private double latitude;
+    private float longitude;
+    private float latitude;
     private int complexNumber;
     private boolean showWarningMessage;
     private LocalTime openTime;
@@ -42,7 +40,7 @@ public class Store implements Serializable {
     }
 
     public Store(String city, String postalCode, String street, String street2, String street3, String uuid,
-                 String addressName, double longitude, double latitude, int complexNumber,
+                 String addressName, float longitude, float latitude, int complexNumber,
                  boolean showWarningMessage, LocalTime openTime, LocalTime closeTime, String locationType,
                  boolean collectionPoint, int sapStoreId, boolean active) {
         this.city = city;
@@ -96,11 +94,11 @@ public class Store implements Serializable {
         return addressName;
     }
 
-    public double getLongitude() {
+    public float getLongitude() {
         return longitude;
     }
 
-    public double getLatitude() {
+    public float getLatitude() {
         return latitude;
     }
 

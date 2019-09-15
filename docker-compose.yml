@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mssql:
+    image: "mcr.microsoft.com/mssql/server"
+    ports:
+      - "1434:1434"
+    volumes:
+      - /var/opt/mssql
+      # we copy our scripts into the container
+      - ./setup:/usr/src/app
+    # bash will be executed from this path
+    working_dir: /usr/src/app
+    command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
+    environment:
+      SA_PASSWORD: "Password123"
+      ACCEPT_EULA: "Y"
+    container_name: mssqldev
+  store-locator-backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
+    depends_on:
+    - mssql
