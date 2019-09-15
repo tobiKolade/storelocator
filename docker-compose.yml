@@ -23,7 +23,7 @@ services:
       - backend
   store-locator-backend:
     build:
-      context: store-locator
+      context: store-locator-backend
       dockerfile: Dockerfile
     ports:
     - "8080:8080"
