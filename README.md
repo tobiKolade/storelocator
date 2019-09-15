@@ -18,6 +18,18 @@ The services can be accessed with the details below:
 2. Spring boot backend: http://localhost:8080/
 3. MS SQL database
 
+## API Documentation 
+3 endpoints has been provided. Below is a brief description of the endpoints;
+  1. HTTP GET http://localhost:8080/storelocator/api/v1/stores/nearest?longitude={longitude}&latitude={latitude}.
+     This endpoint returns the nearest stores to the given position(longitude and latitude)
+  2. HTTP GET http://localhost:8080/storelocator/api/v1/stores/nearest/active?longitude={longitude1&latitude={latitude}.
+     This endpoint gets the nearest stores, but filter out stores with Open time as 'Gesloten'. I consider these stores to be inactive
+  3. HTTP GET http://localhost:8080/storelocator/api/v1/stores/nearest/open?longitude={longitude}&latitude={latitude}
+     This endpoint gets nearest open stores. Open stores are stores that are currently open, relative to open and close times
+    
+  You can import the collection to postman using this link: https://www.getpostman.com/collections/caf13ad62a2209a21724
+ 
+
 ## Running the tests
 
 To run the tests, navigate to store-locator-backend directory, and run "mvn test".
