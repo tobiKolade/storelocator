@@ -46,6 +46,9 @@ To deploy this app on a live system, you will need to set up a cluster environme
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [MSSQL](https://docs.microsoft.com/en-us/sql/) - Database
 
+## Demo
+You can find a quick demo of the project here https://drive.google.com/open?id=1AzfxOcXYjHKtpb34QwW30gzsZmr1ir7m
+
 
 ## Acknowledgments
 
