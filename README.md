@@ -6,10 +6,16 @@ This project helps locate the closest jumbo stores to a given position. Haversin
 
 
 ## Getting Started
-Once you have the app on your local system 
-1. Navgate to the folder where this readme file is, through any command line interface (Powershell, Command prompt...)
+Once you have the project on your local system 
+1. Navigate to the folder where this readme file is, through any command line interface (Powershell, Command prompt...)
 2. Run "docker-compose up" without the quotes
 3. The command brings up the 3 services required for this project to run within a docker container
+
+The services can be access with the details below:
+1. React client app: http://localhost:9090/
+2. Spring boot backend: http://localhost:8080/
+3. MS SQL database: 
+    Name: 
 
 
 
