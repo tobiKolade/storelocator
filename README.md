@@ -2,21 +2,29 @@
 
 This project helps locate the closest jumbo stores to a given position. Haversine formula is used to determine the distance of stores relative to the position provided
 
+### Prerequisites
+
+
 ## Getting Started
+Once you have the app on your local system 
+1. Navgate to the folder where this readme file is, through any command line interface (Powershell, Command prompt...)
+2. Run "docker-compose up" without the quotes
+3. The command brings up the 3 services required for this project to run within a docker container
 
 
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
 
-What things you need to install the software and how to install them
 
 ```
 Give examples
 ```
 
 ### Installing
+
+
+
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -60,9 +68,9 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/) - The web framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [MSSQL](https://docs.microsoft.com/en-us/sql/) - Database
 
 ## Contributing
 
