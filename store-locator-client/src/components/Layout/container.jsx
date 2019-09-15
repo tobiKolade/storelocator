@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ViewsContainer from '../StoreViews/viewsContainer';
 import axios from 'axios';
-import { API_BASE_URL } from '../../constants/index'
+import { API_BASE_URL } from '../../constants';
 
 class Container extends Component {
     constructor(props) {
