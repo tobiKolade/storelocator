@@ -6,12 +6,10 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Objects;
 
-/**
- * Created by tobi.oladimeji on 09/12/2019
- */
 public class StoreProcessModel implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String CLOSED_STORE = "Gesloten";
+
     private String city;
     private String postalCode;
     private String street;
@@ -29,12 +27,6 @@ public class StoreProcessModel implements Serializable {
     private boolean collectionPoint;
     private int sapStoreId;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(city, postalCode, street, street2, street3,
-                uuid, addressName, longitude, latitude, complexNumber,showWarningMessage,
-                todayOpen, todayClose, locationType, collectionPoint, sapStoreId);
-    }
 
     public String getCity() {
         return city;
@@ -115,5 +107,12 @@ public class StoreProcessModel implements Serializable {
     @JsonProperty("sapStoreID")
     public int getSapStoreId() {
         return sapStoreId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, postalCode, street, street2, street3,
+                uuid, addressName, longitude, latitude, complexNumber,showWarningMessage,
+                todayOpen, todayClose, locationType, collectionPoint, sapStoreId);
     }
 }

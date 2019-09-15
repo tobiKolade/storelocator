@@ -5,9 +5,6 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Created by tobi.oladimeji on 09/12/2019
- */
 public class Response {
     private LocalDateTime timestamp;
     private String code;

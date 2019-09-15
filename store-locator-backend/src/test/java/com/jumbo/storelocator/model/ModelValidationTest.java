@@ -10,9 +10,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.util.Set;
 
-/**
- * Created by tobi.oladimeji on 09/12/2019
- */
 public class ModelValidationTest {
     private Validator validator;
 

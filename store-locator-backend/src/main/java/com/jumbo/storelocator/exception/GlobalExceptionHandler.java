@@ -25,9 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by tobi.oladimeji on 09/11/2019
- */
 @ControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ResponseBody

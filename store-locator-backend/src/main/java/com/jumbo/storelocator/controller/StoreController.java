@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by tobi.oladimeji on 09/10/2019
- */
 @RestController
 @RequestMapping("/api/v1/stores")
 public class StoreController {

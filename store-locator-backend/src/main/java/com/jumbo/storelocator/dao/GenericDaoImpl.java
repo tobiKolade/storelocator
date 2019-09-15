@@ -15,9 +15,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by tobi.oladimeji on 09/10/2019
- */
 @Repository
 @Transactional
 public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T, ID> {

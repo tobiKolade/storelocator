@@ -5,9 +5,6 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-/**
- * Created by tobi.oladimeji on 09/14/2019
- */
 @Entity
 public class StoreGeoResult implements Serializable {
     private static final long serialVersionUID = 1L;

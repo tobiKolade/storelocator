@@ -7,9 +7,6 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalTime;
 
-/**
- * Created by tobi.oladimeji on 09/09/2019
- */
 @Entity
 public class Store implements Serializable {
 

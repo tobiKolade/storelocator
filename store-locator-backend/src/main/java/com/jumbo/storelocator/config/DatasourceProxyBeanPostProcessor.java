@@ -12,9 +12,6 @@ import org.springframework.util.ReflectionUtils;
 import javax.sql.DataSource;
 import java.lang.reflect.Method;
 
-/**
- * Created by tobi.oladimeji on 09/10/2019
- */
 @Component
 public class DatasourceProxyBeanPostProcessor implements BeanPostProcessor {
     @Override

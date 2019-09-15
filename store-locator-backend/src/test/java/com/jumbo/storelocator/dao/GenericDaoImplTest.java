@@ -17,9 +17,6 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-/**
- * Created by tobi.oladimeji on 09/11/2019
- */
 public class GenericDaoImplTest {
 
     private List<Store> stores;
@@ -58,7 +55,7 @@ public class GenericDaoImplTest {
     }
 
     @Test
-    public void memoryClearsAtBatchLimit_whenSavingBatch() {
+    public void testMemoryClearedAtBatchLimit() {
         Iterable<Store> savedStores = dao.saveInBatch(stores);
 
         int size = ((Collection<?>)savedStores).size();
@@ -72,7 +69,7 @@ public class GenericDaoImplTest {
     }
 
     @Test
-    public void noErrorThrown_whenEmptyRecords() {
+    public void testNoErrorWhenEmptyRecords() {
         Iterable<Store> savedStores = dao.saveInBatch(new ArrayList());
         int size = ((Collection<?>)savedStores).size();
 

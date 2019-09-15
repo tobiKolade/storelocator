@@ -2,9 +2,6 @@ package com.jumbo.storelocator.model.request;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by tobi.oladimeji on 09/11/2019
- */
 public class StoreGeoRequest {
 
     @NotNull(message = "{field.required}")

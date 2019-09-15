@@ -3,9 +3,6 @@ package com.jumbo.storelocator.exception;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
-/**
- * Created by tobi.oladimeji on 09/12/2019
- */
 public class RequestNotValidException extends RuntimeException{
     private final BindingResult bindingResult;
 

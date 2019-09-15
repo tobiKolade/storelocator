@@ -6,10 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
-/**
- * Created by tobi.oladimeji on 09/10/2019
- */
 @Repository
 @Transactional
 public interface StoreRepository extends CrudRepository<Store, Long> {

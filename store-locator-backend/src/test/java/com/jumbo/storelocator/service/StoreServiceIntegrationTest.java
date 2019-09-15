@@ -12,20 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
-/**
- * Created by tobi.oladimeji on 09/11/2019
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class, GenericDao.class, ObjectMapper.class})
 public class StoreServiceIntegrationTest {
@@ -62,7 +54,7 @@ public class StoreServiceIntegrationTest {
     }
 
     @Test
-    public void givenStoreRepository_whenSaveAndRetrieveEntity_thenOK() {
+    public void testSaveAndRetrieveEntityOk() {
         Store storeEntity = storeRepository.save(store);
         Store foundStore = storeRepository.findById(storeEntity.getId()).get();
 
@@ -82,7 +74,7 @@ public class StoreServiceIntegrationTest {
     }
 
     @Test
-    public void testAfterInitialization_thenDataOk() {
+    public void testDataValidAfterInititialization() {
         Optional<Store> storeEntity = storeRepository.findById(2L);
 
         assertNotNull(storeEntity);
@@ -91,7 +83,7 @@ public class StoreServiceIntegrationTest {
     }
 
     @Test
-    public void testAfterInitialization_thenFirstIdIs1() {
+    public void testValidFirstIdAfterInitialization() {
         Long id = storeRepository.findFirstId();
 
         assertNotNull(id);

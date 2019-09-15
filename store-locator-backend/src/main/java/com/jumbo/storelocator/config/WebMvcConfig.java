@@ -17,9 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by tobi.oladimeji on 09/11/2019
- */
 @Configuration
 public class WebMvcConfig
         extends AcceptHeaderLocaleResolver implements WebMvcConfigurer {

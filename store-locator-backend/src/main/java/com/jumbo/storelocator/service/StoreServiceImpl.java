@@ -23,9 +23,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by tobi.oladimeji on 09/10/2019
- */
 @Service
 public class StoreServiceImpl implements StoreService {
 

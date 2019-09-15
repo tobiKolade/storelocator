@@ -11,7 +11,7 @@ services:
     volumes:
       - mssqldata:/var/opt/mssql
       # we copy our scripts into the container
-      - ./store-locator/setup:/usr/src/app
+      - ./store-locator-backend/setup:/usr/src/app
     # bash will be executed from this path
     working_dir: /usr/src/app
     command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
