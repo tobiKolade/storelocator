@@ -49,7 +49,6 @@ public class StoreServiceImpl implements StoreService {
         if(null != storeRepository.findFirstId())
             return;
 
-//        Resource resourceFile = new ClassPathResource(resource);
         TypeReference<List<StoreProcessModel>> typeReference = new TypeReference<List<StoreProcessModel>>(){};
         JsonNode treeNode = objectMapper.readTree(resource.getInputStream());
         JsonNode storesNode = treeNode.findPath(ConstantUtil.STORE_NODE_NAME);

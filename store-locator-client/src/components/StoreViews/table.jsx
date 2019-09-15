@@ -15,7 +15,7 @@ class Table extends Component {
                             <th>Longitude</th>
                             <th>Open Time</th>
                             <th>Close Time</th>
-                            <th>Distance</th>
+                            <th>Distance (km)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,8 +25,8 @@ class Table extends Component {
                                     <td>{store.addressName}</td>
                                     <td>{store.latitude}</td>
                                     <td>{store.longitude}</td>
-                                    <td>{store.openTime}</td>
-                                    <td>{store.closeTime}</td>
+                                    <td>{store.openTime ? store.openTime.substring(0, 5) : 'Gesloten'}</td>
+                                    <td>{store.closeTime ? store.closeTime.substring(0, 5) : 'Gesloten'}</td>
                                     <td>{store.distance}</td>
                                 </tr>
                             )

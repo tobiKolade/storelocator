@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ViewsContainer from '../StoreViews/viewsContainer';
 import axios from 'axios';
+import { API_BASE_URL } from '../../constants/index'
 
 class Container extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class Container extends Component {
     onSubmit(e) {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/storelocator/api/v1/stores/nearest?longitude=' + this.state.latitude + '&latitude=' + this.state.longitude
+            url: API_BASE_URL + '/stores/nearest?latitude=' + this.state.latitude + '&longitude=' + this.state.longitude
         })
             .then((response) => {
                 this.setState({

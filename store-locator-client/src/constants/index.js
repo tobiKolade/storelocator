@@ -1,1 +1,1 @@
-export const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:8080/storelocator/api/v1';
+export const API_BASE_URL = 'http://localhost:8089/storelocator/api/v1';//process.env.API_BASE_URL || 'http://localhost:8089/storelocator/api/v1';
