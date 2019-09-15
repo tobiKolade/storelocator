@@ -49,6 +49,10 @@ To deploy this app on a live system, you will need to set up a cluster environme
 ## Demo
 You can find a quick demo of the project here https://drive.google.com/open?id=1AzfxOcXYjHKtpb34QwW30gzsZmr1ir7m
 
+## Other Notes
+- No security was introduced to the app, as I expect it to be open to everyone who wants to locate Jumbo stores.
+- I added the features I think all production apps should have for proper functioning and monitoring within a cluster. Features like logging(using the logback-spring.xml file), caching(A production app should use Redis, hazelcast and the likes, I used the default spring boot in memory cache for the purpose of this task). I added a few tests, but I demonstrated the use of a seperate database different from the primary app database(I used H2 database).
+- I also containerized the app using docker. A single command can start all services. 
 
 ## Acknowledgments
 
