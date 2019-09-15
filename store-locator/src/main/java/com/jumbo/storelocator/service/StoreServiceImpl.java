@@ -31,7 +31,7 @@ import java.util.List;
 public class StoreServiceImpl implements StoreService {
 
     @Value("${stores.file}")
-    private String resource;
+    private Resource resource;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -50,9 +50,9 @@ public class StoreServiceImpl implements StoreService {
         if(null != storeRepository.findFirstId())
             return;
 
-        Resource resourceFile = new ClassPathResource(resource);
+//        Resource resourceFile = new ClassPathResource(resource);
         TypeReference<List<StoreProcessModel>> typeReference = new TypeReference<List<StoreProcessModel>>(){};
-        JsonNode treeNode = objectMapper.readTree(resourceFile.getInputStream());
+        JsonNode treeNode = objectMapper.readTree(resource.getInputStream());
         JsonNode storesNode = treeNode.findPath(ConstantUtil.STORE_NODE_NAME);
         List<StoreProcessModel> jsonStores = objectMapper.readValue(storesNode.toString(), typeReference);
 

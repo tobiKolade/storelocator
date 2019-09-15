@@ -11,7 +11,7 @@ services:
     volumes:
       - mssqldata:/var/opt/mssql
       # we copy our scripts into the container
-      - ./store-locator/setup:/usr/src/app
+      - ./setup:/usr/src/app
     # bash will be executed from this path
     working_dir: /usr/src/app
     command: sh -c ' chmod +x ./entrypoint.sh; ./entrypoint.sh & /opt/mssql/bin/sqlservr;'
@@ -19,35 +19,14 @@ services:
       SA_PASSWORD: "Password123"
       ACCEPT_EULA: "Y"
     container_name: mssqldev
-    networks: 
-      - backend
   store-locator-backend:
     build:
-      context: store-locator
+      context: ./
       dockerfile: Dockerfile
     ports:
     - "8080:8080"
     depends_on:
     - mssql
-    networks: 
-      - backend
-      - frontend
-  store-locator-client:
-    build:
-      context: store-locator-client
-      dockerfile: Dockerfile
-      args:
-        API_BASE_URL: http://127.0.0.1:8080/api
-    ports:
-        - "9090:80"
-    restart: always
-    depends_on:
-        - store-locator-backend
-    networks: 
-      - frontend
 volumes:
   mssqldata:
 
-networks: 
-  backend:
-  frontend:
