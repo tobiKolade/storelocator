@@ -19,7 +19,7 @@ The services can be accessed with the details below:
 3. MS SQL database
 
 ## API Documentation 
-3 endpoints has been provided. Below is a brief description of the endpoints;
+3 endpoints have been provided. Below is a brief description of the endpoints;
   1. HTTP GET http://localhost:8080/storelocator/api/v1/stores/nearest?longitude={longitude}&latitude={latitude}.
      This endpoint returns the nearest stores to the given position(longitude and latitude)
   2. HTTP GET http://localhost:8080/storelocator/api/v1/stores/nearest/active?longitude={longitude1&latitude={latitude}.
