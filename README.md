@@ -10,10 +10,10 @@ You can find instructions on how to install maven here https://maven.apache.org/
 
 ## Getting Started
 Once you have the project on your local system 
-1. Navigate to the folder where this readme file is, through any command line interface (Powershell, Command prompt...)
-2. Navigate to store-locator-backend folder(on a windows pc: run cd store-locator-backend)
+1. Navigate to the folder where this readme file is, through any command line interface (Terminal,Powershell, Command prompt...)
+2. Navigate to store-locator-backend folder(run cd store-locator-backend)
 3. Run mvn clean package
-4. When this is done, navigate back to previous folder(on a windows pc: run cd..)
+4. When this is done, navigate back to previous folder(run cd..)
 2. Run "docker-compose up" without the quotes 
     Note: There might be a prompt to allow mssql access to the PC, in order to mount the volume for persistent storage. Please grant the           access. The reason for this is so that data don't get lost when the mssql container goes down
 3. If the is any failure, run "docker-compose down" then "docker-compose up" again
