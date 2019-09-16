@@ -4,12 +4,16 @@ This project helps locate the closest jumbo stores to a given position. Haversin
 
 ### Prerequisites
 
-To build the app locally, the only pre-requisite is docker.
+To build the app locally, You need to have docker and maven installed on your machine.
 You can find instructions on how to install it here https://docs.docker.com/install/
+You can find instructions on how to install maven here https://maven.apache.org/install.html
 
 ## Getting Started
 Once you have the project on your local system 
 1. Navigate to the folder where this readme file is, through any command line interface (Powershell, Command prompt...)
+2. Navigate to store-locator-backend folder(on a windows pc: run cd store-locator-backend)
+3. Run mvn clean package
+4. When this is done, navigate back to previous folder(on a windows pc: run cd..)
 2. Run "docker-compose up" without the quotes
 3. The command brings up the 3 services required for this project to run within a docker container
 
