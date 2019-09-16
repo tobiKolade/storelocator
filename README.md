@@ -14,7 +14,9 @@ Once you have the project on your local system
 2. Navigate to store-locator-backend folder(on a windows pc: run cd store-locator-backend)
 3. Run mvn clean package
 4. When this is done, navigate back to previous folder(on a windows pc: run cd..)
-2. Run "docker-compose up" without the quotes
+2. Run "docker-compose up" without the quotes 
+    Note; There might be a prompt to allow mssql access to the PC, in order to mount the volume for persistent storage. Please grant the    access
+3. If the is any failure, run "docker-compose down" then "docker-compose up" again
 3. The command brings up the 3 services required for this project to run within a docker container
 
 The services can be accessed with the details below:
