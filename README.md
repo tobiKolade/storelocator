@@ -15,7 +15,7 @@ Once you have the project on your local system
 3. Run mvn clean package
 4. When this is done, navigate back to previous folder(on a windows pc: run cd..)
 2. Run "docker-compose up" without the quotes 
-    Note; There might be a prompt to allow mssql access to the PC, in order to mount the volume for persistent storage. Please grant the    access
+    Note: There might be a prompt to allow mssql access to the PC, in order to mount the volume for persistent storage. Please grant the           access. The reason for this is so that data don't get lost when the mssql container goes down
 3. If the is any failure, run "docker-compose down" then "docker-compose up" again
 3. The command brings up the 3 services required for this project to run within a docker container
 
