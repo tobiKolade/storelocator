@@ -21,6 +21,7 @@ public class StoreController {
     public Iterable<StoreGeoResult> nearest(@Validated StoreGeoRequest request) {
         String book = "abc";
         return storeService.findNearestStores(request);
+        String abc = "";
     }
 
     @GetMapping(value = "/nearest/active", produces = MediaType.APPLICATION_JSON_VALUE)
