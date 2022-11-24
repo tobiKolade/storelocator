@@ -1,4 +1,4 @@
-# Jumbo Store Locator
+# Jumbo Store Locator.
 
 This project helps locate the closest jumbo stores to a given position. Haversine formula is used to determine the distance of stores relative to the position provided
 
