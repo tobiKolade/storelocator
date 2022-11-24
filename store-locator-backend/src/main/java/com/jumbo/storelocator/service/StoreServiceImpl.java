@@ -127,6 +127,5 @@ public class StoreServiceImpl implements StoreService {
     @CacheEvict(allEntries = true)
     @Scheduled(cron = "0 0 */1 * * ?")
     public void clearCache() {
-        int s = 0;
     }
 }
